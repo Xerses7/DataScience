@@ -1,0 +1,30 @@
+import MapReduce
+import sys
+
+"""
+Relational Join
+"""
+
+mr = MapReduce.MapReduce()
+
+# =============================
+# Do not modify above this line
+
+def mapper(record):
+
+    key = record[1]
+    value = record
+    mr.emit_intermediate(key,value)
+
+def reducer(key, list_of_values):
+    order = list_of_values[0]
+    for i in range(1,len(list_of_values)):
+        l3 = order + list_of_values[i]
+        print(len(l3))
+        mr.emit(l3)
+
+# Do not modify below this line
+# =============================
+if __name__ == '__main__':
+  inputdata = open(sys.argv[1])
+  mr.execute(inputdata, mapper, reducer)
